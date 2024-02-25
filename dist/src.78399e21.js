@@ -28863,7 +28863,110 @@ if ("development" === 'production') {
     }
   };
 }
-},{"react-dom":"../node_modules/react-dom/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react-dom":"../node_modules/react-dom/index.js"}],"../components/movie-card/movie-card.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MovieCard = void 0;
+var MovieCard = exports.MovieCard = function MovieCard(_ref) {
+  var movie = _ref.movie,
+    onMovieClick = _ref.onMovieClick;
+  return /*#__PURE__*/React.createElement("div", {
+    onClick: function onClick() {
+      onMovieClick(movie);
+    }
+  }, movie.title);
+};
+},{}],"../components/movie-view/movie-view.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MovieView = void 0;
+var MovieView = exports.MovieView = function MovieView(_ref) {
+  var movie = _ref.movie,
+    onBackClick = _ref.onBackClick;
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("img", {
+    height: 300,
+    src: movie.image
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Title: "), /*#__PURE__*/React.createElement("span", null, movie.title)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Description: "), /*#__PURE__*/React.createElement("span", null, movie.description)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Genre: "), /*#__PURE__*/React.createElement("span", null, movie.genre)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Director: "), /*#__PURE__*/React.createElement("span", null, movie.director)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Featured: "), /*#__PURE__*/React.createElement("span", null, movie.featured)), /*#__PURE__*/React.createElement("button", {
+    onClick: onBackClick
+  }, " Back "));
+};
+},{}],"../components/main-view/main-view.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MainView = void 0;
+var _react = require("react");
+var _movieCard = require("../movie-card/movie-card");
+var _movieView = require("../movie-view/movie-view");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var MainView = exports.MainView = function MainView() {
+  var _useState = (0, _react.useState)([{
+      id: 1,
+      title: 'Shutter Island',
+      description: 'Teddy Daniels and Chuck Aule, two US marshals, are sent to an asylum on a remote island in order to investigate the disappearance of a patient, where Teddy uncovers a shocking truth about the place.',
+      genre: ['Thriller'],
+      director: 'Martin Scorsese',
+      image: 'https://image.tmdb.org/t/p/original/4GDy0PHYX3VRXUtwK5ysFbg3kEx.jpg',
+      featured: true
+    }, {
+      id: 2,
+      title: 'Interstellar',
+      description: 'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.',
+      genre: ['Science Fiction'],
+      director: 'Christopher Nolan',
+      image: 'https://image.tmdb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',
+      featured: true
+    }, {
+      id: 3,
+      title: 'Inception',
+      description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.',
+      genre: ['Science Fiction'],
+      director: 'Christopher Nolan',
+      image: 'https://image.tmdb.org/t/p/original/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg',
+      featured: true
+    }]),
+    _useState2 = _slicedToArray(_useState, 2),
+    movies = _useState2[0],
+    setMovies = _useState2[1];
+  var _useState3 = (0, _react.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    selectedMovie = _useState4[0],
+    setSelectedMovie = _useState4[1];
+  if (selectedMovie) {
+    return /*#__PURE__*/React.createElement(_movieView.MovieView, {
+      movie: selectedMovie,
+      onBackClick: function onBackClick() {
+        setSelectedMovie(null);
+      }
+    });
+  }
+  if (movies.length === 0) {
+    return /*#__PURE__*/React.createElement("div", null, "The list is empty!");
+  }
+  return /*#__PURE__*/React.createElement("div", null, movies.map(function (movie) {
+    return /*#__PURE__*/React.createElement(_movieCard.MovieCard, {
+      key: movie.id,
+      movie: movie,
+      onMovieClick: function onMovieClick(newSelectedMovie) {
+        setSelectedMovie(newSelectedMovie);
+      }
+    });
+  }));
+};
+},{"react":"../node_modules/react/index.js","../movie-card/movie-card":"../components/movie-card/movie-card.jsx","../movie-view/movie-view":"../components/movie-view/movie-view.jsx"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -28922,14 +29025,13 @@ module.hot.accept(reloadCSS);
 "use strict";
 
 var _client = require("react-dom/client");
+var _mainView = require("../components/main-view/main-view");
 require("./index.scss");
 // Import statement to indicate that you need to bundle `./index.scss`
 
 // Main component (will eventually use all the others)
 var MyFlixApplication = function MyFlixApplication() {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "my-flix"
-  }, /*#__PURE__*/React.createElement("div", null, "Good morning"));
+  return /*#__PURE__*/React.createElement(_mainView.MainView, null);
 };
 
 // Finds the root of your app
@@ -28938,7 +29040,7 @@ var root = (0, _client.createRoot)(container);
 
 // Tells React to render your app in the root DOM element
 root.render( /*#__PURE__*/React.createElement(MyFlixApplication, null));
-},{"react-dom/client":"../node_modules/react-dom/client.js","./index.scss":"index.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react-dom/client":"../node_modules/react-dom/client.js","../components/main-view/main-view":"../components/main-view/main-view.jsx","./index.scss":"index.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -28963,7 +29065,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57713" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64817" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
