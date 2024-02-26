@@ -6,6 +6,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.11.0",
     "sass": "^1.71.0"
   }
 }
