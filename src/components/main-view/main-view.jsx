@@ -19,10 +19,10 @@ export const MainView = () => {
                         ImagePath: movie.ImagePath,
                         Description: movie.Description,
                         Genre: {
-                            Name: movie.Genre?.Name,
+                            Name: movie.genre?.Name,
                         },
                         Director: {
-                            Name: movie.Director?.Name
+                            Name: movie.director?.Name
                         },
                     };
                 });
@@ -37,7 +37,7 @@ export const MainView = () => {
         if (similarMovies.length === 0) {
             return (
                 <>
-                    <MovieView movie={selectedMovie} onBackClick={() => setselectedMovie(null)} /><br />
+                    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} /><br />
                     <h2>Similar Movies</h2>
                     <p>There are no similar movies.</p>
                 </>
@@ -45,14 +45,14 @@ export const MainView = () => {
         } else {
             return (
                 <>
-                    <MovieView movie={selectedMovie} onBackClick={() => setselectedMovie(null)} /><br />
+                    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} /><br />
                     <h2>Similar Movies</h2>
                     {similarMovies.map((movie) => (
                         <MovieCard
                             key={movie._id}
                             movie={movie}
                             onMovieClick={(newSelectedMovie) => {
-                                setselectedMovie(newSelectedMovie);
+                                setSelectedMovie(newSelectedMovie);
                             }}
                         />
                     ))}
