@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
-import { LoginView } from "../login-view/login-view";
-import { SingupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
     const [movies, setMovies] = useState([]);
@@ -17,14 +15,14 @@ export const MainView = () => {
                 const moviesFromApi = data.map((movie) => {
                     return {
                         _id: movie._id,
-                        Title: movie.Title,
+                        Title: movie.title,
                         ImagePath: movie.ImagePath,
                         Description: movie.Description,
                         Genre: {
-                            Name: movie.Genre.Name,
+                            Name: movie.Genre?.Name,
                         },
                         Director: {
-                            Name: movie.Director.Name,
+                            Name: movie.Director?.Name
                         },
                     };
                 });
