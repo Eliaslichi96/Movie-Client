@@ -142,15 +142,16 @@
       this[globalName] = mainExports;
     }
   }
-})({"icU5y":[function(require,module,exports) {
+})({"gjUm6":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
+var HMR_USE_SSE = false;
 module.bundle.HMR_BUNDLE_ID = "022c1b16b4b6dfad";
 "use strict";
-/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
+/* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
   HMRMessage,
@@ -189,6 +190,7 @@ declare var HMR_HOST: string;
 declare var HMR_PORT: string;
 declare var HMR_ENV_HASH: string;
 declare var HMR_SECURE: boolean;
+declare var HMR_USE_SSE: boolean;
 declare var chrome: ExtensionContext;
 declare var browser: ExtensionContext;
 declare var __parcel__import__: (string) => Promise<void>;
@@ -232,7 +234,8 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
         "0.0.0.0"
     ].includes(hostname) ? "wss" : "ws";
     var ws;
-    try {
+    if (HMR_USE_SSE) ws = new EventSource("/__parcel_hmr");
+    else try {
         ws = new WebSocket(protocol + "://" + hostname + (port ? ":" + port : "") + "/");
     } catch (err) {
         if (err.message) console.error(err.message);
@@ -302,12 +305,14 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
             }
         }
     };
-    ws.onerror = function(e) {
-        if (e.message) console.error(e.message);
-    };
-    ws.onclose = function() {
-        console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
-    };
+    if (ws instanceof WebSocket) {
+        ws.onerror = function(e) {
+            if (e.message) console.error(e.message);
+        };
+        ws.onclose = function() {
+            console.warn("[parcel] \uD83D\uDEA8 Connection to the HMR server was lost");
+        };
+    }
 }
 function removeErrorOverlay() {
     var overlay = document.getElementById(OVERLAY_ID);
@@ -578,9 +583,9 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     });
 }
 
-},{}],"asRhT":[function(require,module,exports) {
-var Refresh = require("339da8b9e57ebde");
-var ErrorOverlay = require("36c543ccd56953a9");
+},{}],"1xC6H":[function(require,module,exports) {
+var Refresh = require("6d18d6bd340e7473");
+var ErrorOverlay = require("74ad5ea14201648c");
 Refresh.injectIntoGlobalHook(window);
 window.$RefreshReg$ = function() {};
 window.$RefreshSig$ = function() {
@@ -599,11 +604,11 @@ window.addEventListener("parcelhmraccept", ()=>{
     ErrorOverlay.dismissRuntimeErrors();
 });
 
-},{"339da8b9e57ebde":"lt8io","36c543ccd56953a9":"fIKvQ"}],"lt8io":[function(require,module,exports) {
+},{"6d18d6bd340e7473":"786KC","74ad5ea14201648c":"1dldy"}],"786KC":[function(require,module,exports) {
 "use strict";
-module.exports = require("fc9e216a3e37fe");
+module.exports = require("96622d495519d4e");
 
-},{"fc9e216a3e37fe":"eobp4"}],"eobp4":[function(require,module,exports) {
+},{"96622d495519d4e":"hdge7"}],"hdge7":[function(require,module,exports) {
 /** @license React v0.9.0
  * react-refresh-runtime.development.js
  *
@@ -1063,8 +1068,8 @@ module.exports = require("fc9e216a3e37fe");
     exports.setSignature = setSignature;
 })();
 
-},{}],"fIKvQ":[function(require,module,exports) {
-var process = require("ae579e3d54768856");
+},{}],"1dldy":[function(require,module,exports) {
+var process = require("d1546958eb39fdcf");
 !function(e, t) {
     module.exports = t();
 }(window, function() {
@@ -2794,7 +2799,7 @@ var process = require("ae579e3d54768856");
     ]);
 });
 
-},{"ae579e3d54768856":"d5jf4"}],"d5jf4":[function(require,module,exports) {
+},{"d1546958eb39fdcf":"d5jf4"}],"d5jf4":[function(require,module,exports) {
 // shim for using process in browser
 var process = module.exports = {};
 // cached from whatever global is present so that test runners that stub it
@@ -2977,7 +2982,7 @@ $RefreshReg$(_c, "MyFlixApplication");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"bMkMb"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27189,7 +27194,7 @@ const MainView = ()=>{
             const moviesFromApi = data.map((movie)=>{
                 return {
                     _id: movie._id,
-                    Title: movie.title,
+                    title: movie.title,
                     ImagePath: movie.ImagePath,
                     Description: movie.Description,
                     Genre: {
@@ -27307,7 +27312,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"e2N5X","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"bMkMb"}],"bwuIu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27322,6 +27327,7 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 const MovieCard = ({ movie, onMovieClick })=>{
+    console.log(movie);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         onClick: ()=>{
             onMovieClick(movie);
@@ -27329,7 +27335,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
         children: movie.title
     }, void 0, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 7,
+        lineNumber: 8,
         columnNumber: 9
     }, undefined);
 };
@@ -27337,7 +27343,7 @@ _c = MovieCard;
 // Here is where we define all the props constraints for the MovieCard
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
-        Title: (0, _propTypesDefault.default).string
+        title: (0, _propTypesDefault.default).string
     }).isRequired,
     onMovieClick: (0, _propTypesDefault.default).func.isRequired
 };
@@ -27349,7 +27355,7 @@ $RefreshReg$(_c, "MovieCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"e2N5X","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"bMkMb"}],"7wKI2":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"7wKI2":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -28096,7 +28102,7 @@ printWarning = function(text) {
 };
 module.exports = checkPropTypes;
 
-},{"24ba1e58d167a82c":"jZTZJ","898bc82f39d83f7c":"fqKuf"}],"e2N5X":[function(require,module,exports) {
+},{"24ba1e58d167a82c":"jZTZJ","898bc82f39d83f7c":"fqKuf"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -28126,9 +28132,9 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"bMkMb":[function(require,module,exports) {
+},{}],"km3Ru":[function(require,module,exports) {
 "use strict";
-var Refresh = require("be740806495d02be");
+var Refresh = require("7422ead32dcc1e6b");
 function debounce(func, delay) {
     {
         let timeout = undefined;
@@ -28264,7 +28270,7 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"be740806495d02be":"lt8io"}],"ggaUx":[function(require,module,exports) {
+},{"7422ead32dcc1e6b":"786KC"}],"ggaUx":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e9f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28415,6 +28421,6 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"e2N5X","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"bMkMb","prop-types":"7wKI2"}],"lJZlQ":[function() {},{}]},["icU5y","asRhT","d8Dch"], "d8Dch", "parcelRequire94c2")
+},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"lJZlQ":[function() {},{}]},["gjUm6","1xC6H","d8Dch"], "d8Dch", "parcelRequire94c2")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

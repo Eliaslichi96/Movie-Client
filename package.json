@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@parcel/reporter-dev-server": "^2.12.0",
     "node": "^21.6.2",
     "parcel-bundler": "^1.12.5",
     "prop-types": "^15.8.1",
