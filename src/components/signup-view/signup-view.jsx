@@ -1,5 +1,6 @@
 import React from "react";
-
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { useState } from "react";
 
 export const SingupView = () => {
@@ -24,53 +25,64 @@ export const SingupView = () => {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((response) => {
+        }).then(async (response) => {
+            console.log(data)
             if (response.ok) {
                 alert("Signup successful");
                 window.location.reload();
+            } else if (username.length < 5) {
+                alert("Username must be 5 characters or longer.");
+            } else if (password === "") {
+                alert("You have to enter a password.");
+            } else if (email.includes("@") === false) {
+                alert("Please enter a valid email adress.")
             } else {
                 alert("Signup failed");
             }
+        }).catch(error => {
+            console.error('Error: ', error);
         });
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Username:</label>
-            <input
-                type="text"
-                minLength={5}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-            />
-            <br />
-            <label> Birthday: </label>
-            <input
-                type="date"
-                value={birthday}
-                onChange={(e) => setBirthday(e.target.value)}
-                required
-            />
-            <br />
-            <label> Email: </label>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
-            <br />
-            <label>Password:</label>
-            <input
-                type="password"
-                minLength={8}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <br />
-            <button type="submit"> Sign up </button>
-        </form>
+        <Form onSubmit={handleSubmit} className="mt-5">
+            <Form.Group controlId="formUsername">
+                <Form.Label>Username:</Form.Label>
+                <Form.Control
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    minLength="5"
+                />
+            </Form.Group>
+            <Form.Group controlId="formPassword">
+                <Form.Label>Password:</Form.Label>
+                <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+            </Form.Group>
+            <Form.Group controlId="formEmail">
+                <Form.Label>Email:</Form.Label>
+                <Form.Control
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+            </Form.Group>
+            <Form.Group controlId="formBirthday">
+                <Form.Label>Birthday:</Form.Label>
+                <Form.Control
+                    type="date"
+                    value={birthday}
+                    onChange={(e) => setBirthday(e.target.value)}
+                />
+            </Form.Group>
+            <Button type="submit" onClick={handleSubmit} className="mt-2">Submit</Button>
+        </Form>
     );
-}
+};
