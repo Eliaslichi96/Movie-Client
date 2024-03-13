@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -26,7 +27,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 console.log("Login response: ", data);
                 if (data.user) {
                     localStorage.setItem("token", data.token);
-                    localStorage.setItem("user", data.user);
+                    localStorage.setItem("user", JSON.stringify(data.user));
                     onLoggedIn(data.user, data.token);
                 } else {
                     alert("No such user");
@@ -38,18 +39,18 @@ export const LoginView = ({ onLoggedIn }) => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="mt-5>
             <h1> Login to your account </h1>
             <Form.Group controlId="formUsername">
-                <Form.Label>Username:</Form.Label>
-                <Form.Control
-                    type="text"
-                    minLength={5}
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-            </Form.Group>
+        < Form.Label > Username:</Form.Label >
+            <Form.Control
+                type="text"
+                minLength={5}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+            />
+            </Form.Group >
             <br />
             <Form.Group controlId="formPassword">
                 <Form.Label>Password:</Form.Label>
@@ -63,7 +64,10 @@ export const LoginView = ({ onLoggedIn }) => {
             </Form.Group>
             <br />
             <Button type="submit">Login</Button>
-        </Form>
+        </Form >
     );
 };
 
+LoginView.propTypes = {
+    onLoggedIn: PropTypes.func.isRequired
+};

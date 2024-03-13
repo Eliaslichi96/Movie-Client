@@ -1,6 +1,11 @@
 import PropTypes from "prop-types";
-import Button from "react-bootstrap/Button";
-export const MovieView = ({ movie, onBackClick }) => {
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+import { MovieCard } from "../movie-card/movie-card";
+
+export const MovieView = ({ movie, removeFav, addFav }) => {
     return (
         <div>
             <div>
