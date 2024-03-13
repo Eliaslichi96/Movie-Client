@@ -90,7 +90,7 @@ export const SingupView = () => {
                 />
             </Form.Group>
             <br />
-            <Button variant="primary" type="submit"> Sign up </Button>
+            <Button variant="primary" type="submit" onClick={handleSubmit}> Sign up </Button>
         </Form>
     );
 }

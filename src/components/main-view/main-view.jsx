@@ -20,7 +20,6 @@ export const MainView = () => {
 
     const [movies, setMovies] = useState([]);
 
-
     useEffect(() => {
         if (!token) {
             return;
