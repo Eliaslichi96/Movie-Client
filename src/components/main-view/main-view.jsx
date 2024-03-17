@@ -8,8 +8,6 @@ import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-
-// import Button from "react-bootstrap/Button";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -17,8 +15,9 @@ export const MainView = () => {
     const storedToken = localStorage.getItem("token");
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
-
     const [movies, setMovies] = useState([]);
+    const [search, setSearch] = useState("");
+    const [selectedGenre, setSelectedGenre] = useState("");
 
     useEffect(() => {
         if (!token) {
@@ -108,83 +107,121 @@ export const MainView = () => {
                     {/* Return SignupView if not logged in, otherwise mainpage */}
                     <Route
                         path="/signup"
-                        element={<>
-                            {user ? (
-                                <Navigate to="/" />) :
-                                (<Col md={5}>
-                                    <SignupView /> </Col>
+                        element={
+                            <>
+                                {user ? (
+                                    <Navigate to="/" />
+                                ) : (
+                                    <Col md={5}>
+                                        <SignupView />
+                                    </Col>
                                 )}
-                        </>
+                            </>
                         }
                     />
                     {/* Return LoginView if not logged in, otherwise mainpage */}
                     <Route
                         path="/login"
-                        element={<>
-                            {user ? (
-                                <Navigate to="/" />) :
-                                (<Col md={5}>
-                                    <LoginView
-                                        onLoggedIn={(user, token) => {
-                                            setUser(user);
-                                            setToken(token);
-                                        }}
-                                    />
-                                </Col>
+                        element={
+                            <>
+                                {user ? (
+                                    <Navigate to="/" />
+                                ) : (
+                                    <Col md={5}>
+                                        <LoginView
+                                            onLoggedIn={(user, token) => {
+                                                setUser(user);
+                                                setToken(token);
+                                            }}
+                                        />
+                                    </Col>
                                 )}
-                        </>
+                            </>
                         }
                     />
                     {/* Return MovieView if logged in, otherwise LoginView */}
                     <Route
                         path="/movies/:movieId"
-                        element={<>
-                            {!user ? (
-                                <Navigate to="/login" replace />) :
-                                movies.length === 0 ? (
-                                    <Col>There is no movie</Col>) :
-                                    (<Col md={12}>
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : movies.length === 0 ? (
+                                    <Col>There is no movie</Col>
+                                ) : (
+                                    <Col md={12}>
                                         <MovieView
                                             movies={movies}
                                             removeFav={removeFav}
                                             addFav={addFav}
                                         />
                                     </Col>
-                                    )}
-                        </>
+                                )}
+                            </>
                         }
                     />
                     {/* Return MovieCards if logged in, otherwise LoginView */}
                     <Route
                         path="/"
-                        element={<>
-                            {!user ? (
-                                <Navigate to="/login" replace />) :
-                                movies.length === 0 ? (
-                                    <Col>The list is empty</Col>) :
-                                    (<>
-                                        {movies.map((movie) => (
-                                            <Col md={6} lg={4} xl={3} className="mb-5 col-8" key={movie._id}>
-                                                <MovieCard
-                                                    movie={movie}
-                                                    removeFav={removeFav}
-                                                    addFav={addFav}
-                                                    isFavorite={user.FavoriteMovies.includes(movie._id)}
-                                                />
-                                            </Col>
-                                        ))}
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : movies.length === 0 ? (
+                                    <Col>The list is empty</Col>
+                                ) : (
+                                    <>
+                                        <Form className="form-inline mt-5 d-flex justify-content-center">
+                                            <Form.Control
+                                                className="ms-5 mx-md-0"
+                                                type="search"
+                                                id="searchForm"
+                                                onChange={(e) => setSearch(e.target.value)}
+                                                placeholder="Search for ..."
+                                                aria-label="Search"
+                                            />
+                                            <Form.Select className="ms-1 ms-md-3 w-25" aria-label="Default select genre" onChange={(e) => setSelectedGenre(e.target.value)}>
+                                                <option value="" selected>Search by genre</option>
+                                                <option value="Comedy Horror">Comedy Horror</option>
+                                                <option value="Horror">Horror</option>
+                                                <option value="Musical">Musical</option>
+                                                <option value="Fantasy">Fantasy</option>
+                                                <option value="Thriller">Thriller</option>
+                                            </Form.Select>
+                                        </Form>
+                                        {movies.filter((movie) => {
+                                            return selectedGenre === ""
+                                                ? movie
+                                                : movie.Genre.Name === selectedGenre;
+                                        })
+                                            .filter((movie) => {
+                                                return search === ""
+                                                    ? movie
+                                                    : movie.Title.toLowerCase().includes(search.toLowerCase());
+                                            })
+                                            .map((movie, movieId) => (
+                                                <Col md={6} lg={4} xl={3} className="mb-5 col-8" key={movieId}>
+                                                    <MovieCard
+                                                        movie={movie}
+                                                        removeFav={removeFav}
+                                                        addFav={addFav}
+                                                        isFavorite={user.FavoriteMovies.includes(movie._id)}
+                                                    />
+                                                </Col>
+                                            ))}
                                     </>
-                                    )}
-                        </>
+                                )}
+                            </>
                         }
                     />
                     {/* Return ProfileView if logged in, otherwise LoginView */}
                     <Route
                         path="/profile"
-                        element={<>
-                            {!user ? (
-                                <Navigate to="/login" replace />) :
-                                (
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
                                     <Col>
                                         <ProfileView
                                             user={user}
@@ -195,7 +232,7 @@ export const MainView = () => {
                                         />
                                     </Col>
                                 )}
-                        </>
+                            </>
                         }
                     />
                 </Routes>
