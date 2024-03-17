@@ -3,28 +3,31 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./movie-card.scss";
+import { BookmarkHeart, BookmarkHeartFill } from "react-bootstrap-icons";
 
 // The MovieCard function component
 export const MovieCard = ({ movie, addFav, removeFav, isFavorite }) => {
     return (
         <Card className="h-100 mt-5 card-shadow">
-            <Card.Img variant="top" src={movie.image} />
+            <div className="position-relative .d-inline-block">
+                <Card.Img variant="top card-img" src={movie.ImagePath} />
+                <div>
+                    {isFavorite ? (
+                        <BookmarkHeartFill size={40} color="orange" className="fav-button mt-2 me-2 top-0 end-0" onClick={() => removeFav(movie._id)} />
+                    ) : (
+                        <BookmarkHeart size={40} color="orange" className="fav-button mt-2 me-2 top-0 end-0" onClick={() => addFav(movie._id)} />
+                    )}
+                </div>
+            </div>
             <Card.Body>
-                <Card.Title>{movie.title}</Card.Title>
-                <Card.Text>{movie.genre}</Card.Text>
-
+                <Card.Title>{movie.Title}</Card.Title>
+                <Card.Text>{movie.Director.Name}</Card.Text>
                 <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
                     <Button variant="link">
                         Open
                     </Button>
                 </Link>
-                <div>
-                    {isFavorite ? (
-                        <Button className="my-2 me-2" onClick={() => removeFav(movie._id)}>Remove from Favorite</Button>
-                    ) : (
-                        <Button className="my-2 me-2" onClick={() => addFav(movie._id)}>Add to Favorite</Button>
-                    )}
-                </div>
             </Card.Body>
         </Card>
     );
