@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -6,6 +5,7 @@ import { Col, Row } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 
 export const MovieView = ({ movies, removeFav, addFav }) => {
+
     const { movieId } = useParams();
     const movie = movies.find((movie) => movie._id === movieId);
 
@@ -21,6 +21,7 @@ export const MovieView = ({ movies, removeFav, addFav }) => {
 
     // Debug
     console.log(user);
+
 
     return (
         <>
