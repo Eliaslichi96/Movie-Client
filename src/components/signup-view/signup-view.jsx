@@ -1,26 +1,25 @@
-import React from "react";
 import { useState } from "react";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
-export const SingupView = () => {
+export const SignupView = () => {
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
     const handleSubmit = (event) => {
-        event.preventDefault(event);
-        const isoDate = new Date(birthday);
+        // this prevents the default behavior of the form which is to reload the entire page
+        event.preventDefault();
 
         const data = {
-            UserName: username,
+            Username: username,
+            Password: password,
             Email: email,
-            Birthday: isoDate,
-            Password: password
+            Birthday: birthday
         };
 
-        fetch("https://movie-api-project14-def5aeaaa6a3.herokuapp.com/users", {
+        fetch(`https://movie-api-project14-def5aeaaa6a3.herokuapp.com/users`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -46,31 +45,28 @@ export const SingupView = () => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <br />
-            <h1> Create an account </h1>
+        <Form onSubmit={handleSubmit} className="mt-5">
             <Form.Group controlId="formUsername">
                 <Form.Label>Username:</Form.Label>
                 <Form.Control
                     type="text"
-                    minLength={5}
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
+                    minLength="5"
                 />
             </Form.Group>
-            <Form.Group controlId="formBirthday">
-                <Form.Label> Birthday: </Form.Label>
+            <Form.Group controlId="formPassword">
+                <Form.Label>Password:</Form.Label>
                 <Form.Control
-                    type="date"
-                    value={birthday}
-                    onChange={(e) => setBirthday(e.target.value)}
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                 />
             </Form.Group>
-            <br />
             <Form.Group controlId="formEmail">
-                <Form.Label> Email: </Form.Label>
+                <Form.Label>Email:</Form.Label>
                 <Form.Control
                     type="email"
                     value={email}
@@ -78,19 +74,15 @@ export const SingupView = () => {
                     required
                 />
             </Form.Group>
-            <br />
-            <Form.Group controlId="formPassword">
-                <Form.Label>Password:</Form.Label>
+            <Form.Group controlId="formBirthday">
+                <Form.Label>Birthday:</Form.Label>
                 <Form.Control
-                    type="password"
-                    minLength={8}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
+                    type="date"
+                    value={birthday}
+                    onChange={(e) => setBirthday(e.target.value)}
                 />
             </Form.Group>
-            <br />
-            <Button variant="primary" type="submit" onClick={handleSubmit}> Sign up </Button>
+            <Button type="submit" onClick={handleSubmit} className="mt-2">Submit</Button>
         </Form>
     );
-}
+};

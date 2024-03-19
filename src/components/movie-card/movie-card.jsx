@@ -1,12 +1,9 @@
-// Here you import the PropTypes library
-import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import "./movie-card.scss";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./movie-card.scss";
 import { BookmarkHeart, BookmarkHeartFill } from "react-bootstrap-icons";
 
-// The MovieCard function component
 export const MovieCard = ({ movie, addFav, removeFav, isFavorite }) => {
     return (
         <Card className="h-100 mt-5 card-shadow">
@@ -33,11 +30,9 @@ export const MovieCard = ({ movie, addFav, removeFav, isFavorite }) => {
     );
 };
 
-// Here is where we define all the props constraints for the MovieCard
+// define all the props constraints for the MovieCard
 MovieCard.propTypes = {
     movie: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired
+        Title: PropTypes.string,
     }).isRequired
 };
