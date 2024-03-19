@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
-import { SingupView } from "../signup-view/signup-view";
-import { LoginView } from "../login-view/login-view";
-import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { ProfileView } from "../profile-view/profile-view";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
+import { LoginView } from "../login-view/login-view.jsx";
+import { SignupView } from "../signup-view/signup-view.jsx";
+import { NavigationBar } from "../navigation-bar/navigation-bar.jsx";
+import { ProfileView } from "../profile-view/profile-view.jsx";
+import "./main-view.scss";
+import { Row } from "react-bootstrap";
+import { Col, Form, Button } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -19,29 +19,37 @@ export const MainView = () => {
     const [search, setSearch] = useState("");
     const [selectedGenre, setSelectedGenre] = useState("");
 
+    // Connect App to API with Hook
     useEffect(() => {
         if (!token) {
             return;
         }
+
         fetch("https://movie-api-project14-def5aeaaa6a3.herokuapp.com/movies", {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token}` }
         })
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 const moviesFromApi = data.map((movie) => {
                     return {
-                        id: movie._id,
-                        title: movie.Title,
-                        genre: movie.Genre,
-                        description: movie.Description,
-                        director: movie.Director,
+                        _id: movie._id,
+                        Title: movie.Title,
+                        ImagePath: movie.ImagePath,
+                        Description: movie.Description,
+                        Year: movie.Year,
+                        Genre: {
+                            Name: movie.Genre.Name
+                        },
+                        Director: {
+                            Name: movie.Director.Name
+                        }
                     };
                 });
-                localStorage.setItem("movies",
-                    JSON.stringify(moviesFromApi));
                 setMovies(moviesFromApi);
             });
     }, [token]);
+
     // Add Favorite Movie
     const addFav = (id) => {
 
@@ -54,11 +62,10 @@ export const MainView = () => {
             if (response.ok) {
                 return response.json();
             } else {
-                alert("Failed to add")
+                alert("Failed to add");
             }
         }).then((user) => {
             if (user) {
-                alert("Added successfully");
                 localStorage.setItem('user', JSON.stringify(user));
                 setUser(user);
                 //setIsFavorite(true);
@@ -67,6 +74,7 @@ export const MainView = () => {
             console.error('Error: ', error);
         });
     };
+
     // Remove Favorite Movie
     const removeFav = (id) => {
 
@@ -83,7 +91,6 @@ export const MainView = () => {
             }
         }).then((user) => {
             if (user) {
-                alert("Removed successfully from favorite Movies");
                 localStorage.setItem('user', JSON.stringify(user));
                 setUser(user);
                 //setIsFavorite(false);
@@ -92,6 +99,7 @@ export const MainView = () => {
             console.error('Error: ', error);
         });
     };
+
     return (
         <BrowserRouter>
             <NavigationBar
