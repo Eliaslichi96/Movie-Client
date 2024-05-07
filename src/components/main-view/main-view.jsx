@@ -30,7 +30,6 @@ export const MainView = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 const moviesFromApi = data.map((movie) => {
                     return {
                         _id: movie._id,
@@ -120,7 +119,7 @@ export const MainView = () => {
                                 {user ? (
                                     <Navigate to="/" />
                                 ) : (
-                                    <Col md={5}>
+                                    <Col md={5} className="start-container mt-5">
                                         <SignupView />
                                     </Col>
                                 )}
@@ -135,7 +134,7 @@ export const MainView = () => {
                                 {user ? (
                                     <Navigate to="/" />
                                 ) : (
-                                    <Col md={5}>
+                                    <Col md={5} className="start-container mt-5">
                                         <LoginView
                                             onLoggedIn={(user, token) => {
                                                 setUser(user);
